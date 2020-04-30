@@ -114,13 +114,13 @@ class _MyHomePageState extends State<MyHomePage> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               FloatingActionButton(
-                onPressed: () {},
-                child: Icon(Icons.navigate_before),
+                onPressed: _decrementCounter,
+                child: Icon(Icons.remove),
               ),
               FloatingActionButton(
-                onPressed: () {},
-                child: Icon(Icons.navigate_next),
-              )
+                onPressed: _incrementCounter,
+                child: Icon(Icons.add),
+              ),
             ],
           ),
         ));
