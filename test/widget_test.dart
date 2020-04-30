@@ -7,13 +7,20 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-import 'package:breakeven/main.dart';
+import 'package:BreakEven/main.dart';
+import 'package:redux/redux.dart';
+import 'package:BreakEven/gamestate.dart';
+import 'package:BreakEven/blackjack.dart';
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
+    final store = new Store<GameState>(reducer, initialState: GameState());
+
     // Build our app and trigger a frame.
-    await tester.pumpWidget(MyApp());
+    await tester.pumpWidget(MyApp(
+      title: 'BlackJack',
+      store: store,
+    ));
 
     // Verify that our counter starts at 0.
     expect(find.text('0'), findsOneWidget);

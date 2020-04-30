@@ -1,4 +1,4 @@
-package com.example.breakeven
+package com.example.BreakEven
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity
