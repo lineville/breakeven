@@ -30,7 +30,7 @@ GameState reducer(GameState state, dynamic action) {
               PlayingCard(value: 10, name: "King", suite: "S")
             ] : state.dealerCards);
       }
-      break;
+      break;``
 
     case Actions.Split:
       {
