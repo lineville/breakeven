@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:BreakEven/main.dart';
 import 'package:redux/redux.dart';
@@ -19,31 +18,73 @@ void main() {
     expect(find.text('Stay'), findsOneWidget);
     expect(find.text('Split'), findsOneWidget);
     expect(find.text('Double'), findsOneWidget);
-
-    // Tap the Hit button and trigger a frame.
-    await tester.tap(find.text('Hit'));
-    await tester.pump();
-    expect(store.state.action, 'Hit');
-    expect(find.text('Hit'), findsNWidgets(2));
-
-    // Tap the Stay button and trigger a frame.
-    await tester.tap(find.text('Stay'));
-    await tester.pump();
-    expect(store.state.action, 'Stay');
-    expect(find.text('Stay'), findsNWidgets(2));
-
-    // Tap the Split button and trigger a frame.
-    await tester.tap(find.text('Split'));
-    await tester.pump();
-    expect(store.state.action, 'Split');
-    expect(find.text('Split'), findsNWidgets(2));
-
-
-    // Tap the Double button and trigger a frame.
-    await tester.tap(find.text('Double'));
-    await tester.pump();
-    expect(store.state.action, 'Double');
-    expect(find.text('Double'), findsNWidgets(2));
-
   });
+
+  group('computeScore', () {
+    test('should be 21', () {
+      List<PlayingCard> hand = new List<PlayingCard>();
+      hand.add(PlayingCard(name: "Ace", value: 11, suite: 'H'));
+      hand.add(PlayingCard(name: "King", value: 10, suite: 'H'));
+      expect(computeScore(hand), 21);
+    });
+
+    test('should be 16', () {
+      List<PlayingCard> hand = new List<PlayingCard>();
+      hand.add(PlayingCard(name: "Ace", value: 11, suite: 'H'));
+      hand.add(PlayingCard(name: "King", value: 10, suite: 'H'));
+      hand.add(PlayingCard(name: "Five", value: 5, suite: 'H'));
+      expect(computeScore(hand), 16);
+    });
+  });
+
+  group('cardCount', () {
+    test('should be -1', () {
+      expect(cardCount(PlayingCard(name: "Jack", value: 10, suite: 'H')), -1);
+    });
+
+    test('should be 0', () {
+      expect(cardCount(PlayingCard(name: "Eight", value: 8, suite: 'H')), 0);
+    });
+
+    test('should be 1', () {
+      expect(cardCount(PlayingCard(name: "Five", value: 5, suite: 'H')), 1);
+    });
+  });
+
+  group('isHardHand', () {
+    test('should be false', () {
+      List<PlayingCard> hand = new List<PlayingCard>();
+      hand.add(PlayingCard(name: "Ace", value: 11, suite: 'H'));
+      hand.add(PlayingCard(name: "Seven", value: 7, suite: 'H'));
+      expect(isHardHand(hand), false);
+    });
+
+    test('should be true', () {
+      List<PlayingCard> hand = new List<PlayingCard>();
+      hand.add(PlayingCard(name: "Ten", value: 10, suite: 'H'));
+      hand.add(PlayingCard(name: "Seven", value: 7, suite: 'H'));
+      expect(isHardHand(hand), true);
+    });
+  });
+
+  group('isBusted', () {
+    test('should be true', () {
+      List<PlayingCard> hand = new List<PlayingCard>();
+      hand.add(PlayingCard(name: "Ten", value: 10, suite: 'H'));
+      hand.add(PlayingCard(name: "Seven", value: 7, suite: 'H'));
+      hand.add(PlayingCard(name: "Seven", value: 7, suite: 'H'));
+      expect(isBusted(hand), true);
+    });
+
+    test('should be true', () {
+      List<PlayingCard> hand = new List<PlayingCard>();
+      hand.add(PlayingCard(name: "Ten", value: 10, suite: 'H'));
+      hand.add(PlayingCard(name: "Seven", value: 7, suite: 'H'));
+      hand.add(PlayingCard(name: "Ace", value: 11, suite: 'H'));
+      expect(isBusted(hand), false);
+    });
+  });
+
+
+
 }
