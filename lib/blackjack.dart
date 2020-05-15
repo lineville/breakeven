@@ -110,8 +110,8 @@ GameState reducer(GameState state, dynamic action) {
           rightHand: List<PlayingCard>(),
           bet: state.doubledDown ? state.bet * 2 : state.bet,
           balance: state.balance - state.bet,
-          doubledDown: false,
-          hint: decisionToHint(decideMove(state.userCards, state.dealerCards[0], state.splitAvailable)),
+          doubledDown: false
+          // hint: decisionToHint(decideMove(state.userCards, state.dealerCards.length > 0 ? state.dealerCards[0] : dealerHand[0], state.splitAvailable)),
         );
       }
       break;
